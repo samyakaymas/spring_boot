@@ -11,11 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mobile.mobile.entity.salesman;
 import com.mobile.mobile.entity.salesman_number;
+import com.mobile.mobile.entity.users;
+import com.mobile.mobile.service.UserService;
 @Transactional
 @Repository
 public class salesmanDao{
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private UserService userService;
+    
     public List<salesman> getSalesman(String name, boolean current)
     {
         String sql = "SELECT * FROM salesman WHERE 2 > 1";
@@ -45,11 +50,21 @@ public class salesmanDao{
         int count = jdbcTemplate.queryForObject(sql,Integer.class);
         return count>0;
     }
-    public String addSalesman(String name, String password, String address, Date dob, Date join_date, int start_salary, List<Long> numbers)
+    public boolean usernameExist(String username)
+    {
+        String sql = "SELECT COUNT(*) FROM users WHERE username = \'" + username + "\';";
+        int count = jdbcTemplate.queryForObject(sql,Integer.class);
+        return count>0;
+    }
+    public String addSalesman(String name, users user, String address, Date dob, Date join_date, int start_salary, List<Long> numbers)
     {
         if(salesmanExist(name))
         {
             return "Salesman Already Exists";
+        }
+        if(usernameExist(user.getUsername()))
+        {
+            return "Username Already Exists";
         }
         String sql = "INSERT INTO salesman(name,address,dob,join_date,start_salary,current_salary,sale_value,sale_units) VALUES (?,?,?,?,?,?,?,?);";
         jdbcTemplate.update(sql, name, address, dob, join_date, start_salary, start_salary, 0, 0);
@@ -58,6 +73,8 @@ public class salesmanDao{
         {
             jdbcTemplate.update("INSERT INTO salesman_number(id,number) VALUES (?,?);", id, numbers.get(i));
         }
+        user.setSid(id);
+        userService.save(user);
         return "Added";
     }
     public String fireSalesman(int id, Date leaving_date)

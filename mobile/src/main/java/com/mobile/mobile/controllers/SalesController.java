@@ -54,16 +54,7 @@ public class SalesController
     @RequestMapping(value= "sales", method = RequestMethod.GET)
     public String saleshome(HttpSession session, Model model)
     {
-        if(session.getAttribute("user")==null)
-        {
-            return "redirect:/";
-        }
-        else if(session.getAttribute("user").equals("admin"))
-        {
-            return "notauth";
-        }
-        else
-            return "sales_home";
+        return "sales_home";
     }
     @RequestMapping(value= "sales/customer", method = RequestMethod.GET)
     public String customer(HttpSession session, Model model)

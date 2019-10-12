@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <html>
 <head>
         <link rel="stylesheet" href="/common.css">
@@ -61,9 +64,16 @@ window.onload = function() {
 
 
   <div id="admin_salesman_add">
-  <form action="/admin/salesman/add" method="POST">
+  <form:form action="/admin/salesman/add" method="POST" modelAttribute="userForm">
     Name:<input type="text" name="name" required>
-    Password:<input type="text" name = "password" required>
+    Username:<spring:bind path="username">
+                    <form:input type="text" path="username" placeholder="Username" autofocus="true"></form:input>
+                    <form:errors path="username"></form:errors>
+    </spring:bind>
+    Password:<spring:bind path="password">
+          <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
+          <form:errors path="password"></form:errors>
+  </spring:bind>
     Address:<input type="text" name="address">
     Date Of Birth:<input type="date" name = "dob" value = "1990-01-01">
     Joining Date:<input type="date" name = "join_date" id = "date">
@@ -71,7 +81,7 @@ window.onload = function() {
     Mobile Number:<div id="mobile"><input type="number" min=1000000000 max=9999999999 name="mobiles[]"></div>
     <input type="button" value="Add Number" onclick="addmobile()">
     <input type="submit" value="Add Salesman">
-  </form>
+  </form:form>
   <div>${outcome_add}</div>
 </div>
 

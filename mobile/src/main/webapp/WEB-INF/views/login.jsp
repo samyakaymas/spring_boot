@@ -1,5 +1,9 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+
 <!DOCTYPE HTML>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
     <head>
             <link rel="stylesheet" href="/common.css">
@@ -43,7 +47,7 @@
             </ul>
 </div></div>
         <div id="loginbox">
-        <form action="" method="POST" onsubmit="return userAuth()">
+        <form:form action="/" method="POST" onsubmit="return userAuth()">
             <table id="logintable">
                 <tr>
                     <td>Username:</td>
@@ -53,18 +57,18 @@
                             <option class="option" value="${u.getUsername()}">
                         </c:forEach>
                         </datalist></td>
-                    <td><div id="warning"> ${message} </div></td>
                 </tr>
                 <tr>
                     <td>Password:</td>
                     <td><input type="password" name="password" value=""></td>
-                    <td id="invalid">${invalid}</td>
                 </tr>
                 <tr>
-                    <td></td><td colspan="2"><input type="submit" value="Login"></td>
+                    <td></td><td colspan="2">
+                        <input type="submit" value="Login"></td>
                 </tr>
             </table>
-        </form>
+        </form:form>
+        ${error} ${message}
         </div>
         
     </body>

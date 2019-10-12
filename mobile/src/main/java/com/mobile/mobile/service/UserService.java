@@ -1,9 +1,9 @@
-// package com.mobile.mobile.service;
+package com.mobile.mobile.service;
 
-// import com.mobile.mobile.entity.users;
+import com.mobile.mobile.entity.users;
 
-// public interface UserService {
-//     void insert(users user);
+public interface UserService {
+    void save(users user);
 
-//     users findByUsername(String username);
-// }
+    users findByUsername(String username);
+}

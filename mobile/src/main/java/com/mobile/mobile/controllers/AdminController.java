@@ -2,6 +2,7 @@ package com.mobile.mobile.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.mobile.mobile.entity.users;
+import com.mobile.mobile.service.SecurityService;
+import com.mobile.mobile.validator.UserValidator;
 import com.mobile.mobile.entity.accessories;
 import com.mobile.mobile.entity.brand;
 import com.mobile.mobile.entity.mobiles;
@@ -44,6 +48,8 @@ import com.mobile.mobile.dao.supplierDao;
 public class AdminController
 {
     @Autowired
+    private SecurityService securityservice;
+    @Autowired
     private mobileDao mobiledao;
     @Autowired
     private accessoryDao accdao;
@@ -58,16 +64,8 @@ public class AdminController
     @RequestMapping(value="admin", method=RequestMethod.GET)
     public String adminhome(HttpSession session, Model model)
     {
-        if(session.getAttribute("user")==null)
-        {
-            return "redirect:/";
-        }
-        else if(session.getAttribute("user").equals("admin"))
-        {
-            return "admin_home";
-        }
-        else
-            return "notauth";
+        System.out.println(securityservice.findLoggedInUsername());
+        return "admin_home";
     }
     @RequestMapping(value="admin/brand", method=RequestMethod.GET)
     public String brand(HttpSession session, Model model)
@@ -237,7 +235,7 @@ public class AdminController
         return "admin_supplier";
     }
     @RequestMapping(value="admin/salesman", method=RequestMethod.GET)
-    public String salesman(HttpSession session, Model model)
+    public String salesman(@ModelAttribute("userForm") users userForm, HttpSession session, Model model)
     {
         List<salesman> list = salesmandao.getSalesman("",true);
         model.addAttribute("list", list);
@@ -251,10 +249,15 @@ public class AdminController
                             @RequestParam("start_salary") int start_salary,
                             @RequestParam("dob") String dob,
                             @RequestParam("join_date") String join_date,
-                            @RequestParam("password") String password )
+                            @ModelAttribute("userForm") users userForm,
+                            BindingResult bindingResult)
     {
-        
-        model.addAttribute("outcome_add", salesmandao.addSalesman(name, password, address, Date.valueOf(dob), Date.valueOf(join_date), start_salary, numbers));
+        System.out.println(userForm.getUsername());
+        //userValidator.validate(userForm, bindingResult);
+        model.addAttribute("outcome_add", salesmandao.addSalesman(name, userForm, address, Date.valueOf(dob), Date.valueOf(join_date), start_salary, numbers));
+        // if (bindingResult.hasErrors()) {
+        //     return "admin/salesman/add";
+        // }
         List<salesman> list = salesmandao.getSalesman("",true);
         model.addAttribute("list", list);
         return "admin_salesman";

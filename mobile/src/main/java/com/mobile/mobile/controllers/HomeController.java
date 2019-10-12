@@ -24,63 +24,73 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.mobile.mobile.entity.users;
+import com.mobile.mobile.service.SecurityService;
 import com.mobile.mobile.dao.IusersDao;
 
 @Controller
 public class HomeController {
     @Autowired
     private IusersDao dao;
-    @RequestMapping(value = "/", method=RequestMethod.GET)
-    public String home(Model model, HttpSession session)
+    @Autowired
+    private SecurityService securityservice;
+
+    @RequestMapping(value = "", method=RequestMethod.GET)
+    public String home(Model model, HttpSession session, String error, String logout)
     {
-        if(session.getAttribute("user")==null)
+        System.out.println(securityservice.findLoggedInUsername());
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
+
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
+        
+        if(securityservice.findLoggedInUsername() == null)
         {
-            List<users> users = dao.getAllUser();
-            model.addAttribute("users", users);
             return "login";
         }
-        else if(session.getAttribute("user").equals("admin"))
+        if(securityservice.findLoggedInUsername().equals("admin"))
         {
-            return "redirect:admin";
+            return "redirect:/admin";
         }
-        else
-        {
-            return "redirect:sales";
-        }
+        return "redirect:/sales";
     }
-    
-    @RequestMapping(value = "/", method=RequestMethod.POST)
-    public String authentication(Model model, @RequestParam(name="username") String username, @RequestParam(name="password") String password, HttpSession session)
+    @RequestMapping(value = "/403", method=RequestMethod.GET)
+    public String notauth()
     {
-        users u = dao.getUserByName(username);
-        if(password.equals(u.getPassword()))
-        {
-            session.setAttribute("user", username);
-            if(username.equals("admin"))
-            {
-                return "redirect:admin";
-            }
-            else
-            {
-                return "redirect:sales";
-            }
-        }
-        else{
-            List<users> user = dao.getAllUser();
-            model.addAttribute("users", user);
-            model.addAttribute("invalid", "INVALID PASSWORD!");
-            return "login";
-        }
+        return "notauth";
     }
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logout(Model model, HttpSession session)
-    {
-        session.removeAttribute("user");
-        return "redirect:/";
-    }
+    // @RequestMapping(value = "/", method=RequestMethod.POST)
+    // public String authentication(Model model, @RequestParam(name="username") String username, @RequestParam(name="password") String password, HttpSession session)
+    // {
+    //     users u = dao.getUserByName(username);
+    //     if(password.equals(u.getPassword()))
+    //     {
+    //         session.setAttribute("user", username);
+    //         if(username.equals("admin"))
+    //         {
+    //             return "redirect:admin";
+    //         }
+    //         else
+    //         {
+    //             return "redirect:sales";
+    //         }
+    //     }
+    //     else{
+    //         List<users> user = dao.getAllUser();
+    //         model.addAttribute("users", user);
+    //         model.addAttribute("invalid", "INVALID PASSWORD!");
+    //         return "login";
+    //     }
+    // }
+    // @RequestMapping(value="/logout", method = RequestMethod.GET)
+    // public String logout(Model model)
+    // {
+    //     return "redirect:/";
+    // }
 }

@@ -3,7 +3,7 @@ package com.mobile.mobile.entity;
 public class mstock{
 	private int CostPrice;
 	private int SellingPrice;
-	private int id;
+	private Long id;
 	private String model;
 	private String name;
 
@@ -31,11 +31,11 @@ public class mstock{
 		this.SellingPrice=SellingPrice;
 	}
 
-	public int getId(){
+	public Long getId(){
 		return id;
 	}
 
-	public void setId(int id){
+	public void setId(Long id){
 		this.id=id;
 	}
 

@@ -19,7 +19,8 @@
   <li><a href="/admin/allpurchase">All Purchases</a></li>
   <li><a href="/admin/expense">Other Expense</a></li>
   <li><a href="/admin/birthdays">Birthdays</a></li>
-  <li><a href="/logout">Logout</a></li>
+  <li><a href="/logout" onclick="document.forms['logoutForm'].submit()">Logout</a>
+  </li>
 </ul>
   </div>
     </div>
