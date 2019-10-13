@@ -54,8 +54,8 @@
   <li><a href="/admin/allsalesman">All Salesman</a></li>
   <li><a href="/admin/allcustomer">All Customer</a></li>
   <li><a href="/admin/purchase">Purchase</a></li>
-  <li><a class="active" href="/admin/allpurchase">All Purchases</a></li>
-  <li><a href="/admin/allsales">All Sales</a></li>
+  <li><a href="/admin/allpurchase">All Purchases</a></li>
+  <li><a class="active" href="/admin/allsales">All Sales</a></li>
   <li><a href="/admin/expense">Other Expense</a></li>
   <li><a href="/admin/expenses">All Other Expenses</a></li>
   <li><a href="/admin/birthdays">Birthdays</a></li>
@@ -66,12 +66,12 @@
 <div id="searchbar">
   <ul>
     <li></li>
-  <form action="/admin/allpurchase" method="POST">
-  <li>Supplier</li>
+  <form action="/admin/allsales" method="POST">
+  <li>Salesman</li>
   <li>
     <select class="input" name="sid">
       <option value=0>All</option>
-      <c:forEach items="${supplier}" var="s">
+      <c:forEach items="${salesman}" var="s">
         <option value="${s.getId()}">${s.getName()}</option>
       </c:forEach>
     </select>
@@ -102,13 +102,13 @@
   <div id="purchasetable">
   <table>
     <tr class="tableheads">
-      <td>Purchase ID</td>
+      <td>Sale ID</td>
       <td>Mobile/Accessory</td>
       <td>Date</td>
-      <td>Supplier</td>
+      <td>Salesman ID</td>
       <td>Description</td>
     </tr>
-    <c:forEach items="${purchase}" var="p">
+    <c:forEach items="${sales}" var="p">
       <tr class="tableitems">
         <td>${p.getId()}</td>
         <td>${p.getMoa()}</td>
@@ -120,7 +120,6 @@
             <tr class="description">
               <td>${d.getModel()}</td>
               <td>${d.getId()}</td>
-              <td>${d.getCost()}</td>
             </tr>
           </c:forEach>
           </table>

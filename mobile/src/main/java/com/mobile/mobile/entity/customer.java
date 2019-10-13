@@ -7,8 +7,17 @@ public class customer {
 	private String address;
 	private java.util.Date dob;
 	private int id;
+	private int nor;
 	private List<customer_number> numbers;
 	
+	public int getNor()
+	{
+		return nor;
+	}
+	public void setNor(int nor)
+	{
+		this.nor = nor;
+	}
 	public List<customer_number> getNumber()
 	{
 		return numbers;

@@ -1,16 +1,16 @@
 package com.mobile.mobile.entity;
 
 public class sdescription{
-	private int id;
+	private Long id;
 	private String model;
 	private int sell_price;
 	private int sid;
 
-	public int getId(){
+	public Long getId(){
 		return id;
 	}
 
-	public void setId(int id){
+	public void setId(Long id){
 		this.id=id;
 	}
 

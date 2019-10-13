@@ -49,12 +49,19 @@ window.onload = function() {
   <li><a href="/accessory">All Accessories</a></li>
   <li><a href="/admin/brand">Brand</a></li>
   <li><a href="/admin/mobile">Mobile</a></li>
+  <li><a href="/admin/mstock">Mobile Stock</a></li>
   <li><a href="/admin/accessory">Accessory</a></li>
+  <li><a href="/admin/astock">Accessory Stock</a></li>
   <li><a href="/admin/supplier">Supplier</a></li>
+  <li><a href="/admin/allsuppliers">All Suppliers</a></li>
   <li><a class="active" href="/admin/salesman">Salesman</a></li>
+  <li><a href="/admin/allsalesman">All Salesman</a></li>
+  <li><a href="/admin/allcustomer">All Customer</a></li>
   <li><a href="/admin/purchase">Purchase</a></li>
   <li><a href="/admin/allpurchase">All Purchases</a></li>
+  <li><a href="/admin/allsales">All Sales</a></li>
   <li><a href="/admin/expense">Other Expense</a></li>
+  <li><a href="/admin/expenses">All Other Expenses</a></li>
   <li><a href="/admin/birthdays">Birthdays</a></li>
   <li><a href="/logout">Logout</a></li>
 </ul>
@@ -67,11 +74,11 @@ window.onload = function() {
   <form:form action="/admin/salesman/add" method="POST" modelAttribute="userForm">
     Name:<input type="text" name="name" required>
     Username:<spring:bind path="username">
-                    <form:input type="text" path="username" placeholder="Username" autofocus="true"></form:input>
+                    <form:input type="text" path="username" placeholder="Username" autofocus="true" value=""></form:input>
                     <form:errors path="username"></form:errors>
     </spring:bind>
     Password:<spring:bind path="password">
-          <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
+          <form:input type="password" path="password" class="form-control" placeholder="Password" value=""></form:input>
           <form:errors path="password"></form:errors>
   </spring:bind>
     Address:<input type="text" name="address">
@@ -86,7 +93,7 @@ window.onload = function() {
 </div>
 
 <div id="admin_salesman_update">
-  <form action="/admin/salesman/update" method="POST">
+  <form action="/admin/salesman/update" method="POST" modelAttribute="userForm">
     Name: <select class="input" name="name" required>
       <c:forEach items="${list}" var="m">
         <option value="${m.getName()}">${m.getName()}</option>
@@ -99,7 +106,7 @@ window.onload = function() {
 </div>
 
 <div id="admin_salesman_delete">
-    <form action="/admin/salesman/delete" method="POST">
+    <form action="/admin/salesman/delete" method="POST" modelAttribute="userForm">
       Name: <select class="input" name="id" required>
         <c:forEach items="${list}" var="m">
           <option value="${m.getId()}">${m.getName()}</option>

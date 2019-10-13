@@ -16,9 +16,13 @@ import com.mobile.mobile.entity.otherexpenses;
 public class expenseDao{
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    public List<otherexpenses> getExpense(String start, String end)
+    public List<otherexpenses> getExpense(String purpose, String start, String end)
     {
         String sql = "SELECT * FROM otherexpenses WHERE 2 > 1";
+        if(!purpose.isEmpty())
+        {
+            sql += " AND purpose LIKE \'%" + purpose + "%\'";
+        }
         sql += " AND date>= \'" + start + "\' AND date<= \'" + end + "\'";
         sql = sql + ";";
         RowMapper<otherexpenses> rowMapper = new BeanPropertyRowMapper<otherexpenses>(otherexpenses.class);

@@ -4,7 +4,16 @@
 <head>
         <link rel="stylesheet" href="/common.css">
         <script>
-
+          function check()
+            {
+              var x = document.getElementsByClassName("idds");
+              if(x.length==0)
+              {
+                alert("No Model Added");
+                return false;
+              }
+            };
+          
           function deletes(node)
           {
             var y = node.querySelector('select');
@@ -23,6 +32,7 @@
             var name = document.getElementById(x).innerHTML;
             document.getElementById(x).remove();
             var row = document.createElement("TR");
+            row.className = "idds";
             var column = document.createElement("TD");
             var s = document.createElement("SELECT");
             s.id = x;
@@ -119,7 +129,7 @@ window.onload = function() {
 </div>
     </div>
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
-  <div id="admin_purchase">
+  <div id="sales">
     <form action="/sales/sale" method="POST">
       <table>
       <tr><td>Customer:</td><td><select class="input" name="cid" required>
@@ -150,7 +160,7 @@ window.onload = function() {
           <td></td>
         </tr>
       </table>
-      <input type="submit" value="Add Purchase" style="width: 15%">
+      <input type="submit" value="Add Purchase" onclick="return check()" style="width: 15%">
     </form>
     <div>${outcome}</div>
   </div>

@@ -21,6 +21,12 @@ public class accessoryDao{
         RowMapper<aspecs> rowMapper = new BeanPropertyRowMapper<aspecs>(aspecs.class);
         return jdbcTemplate.query(sql,rowMapper);
     }
+    public List<accessories>getTypes()
+    {
+        String sql = "SELECT DISTINCT(type) as type FROM accessories";
+        RowMapper<accessories> rowMapper = new BeanPropertyRowMapper<accessories>(accessories.class);
+        return jdbcTemplate.query(sql,rowMapper);
+    }
     public List<accessories> getAccessories(String model, String name, String type, String brand)
     {
         String sql = "SELECT * FROM accessories WHERE 2 > 1";

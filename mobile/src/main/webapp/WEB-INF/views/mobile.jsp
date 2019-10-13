@@ -60,7 +60,7 @@
     <option value="price">Price</option>
   </select></li>
   <li><input type="submit" value="Search"></li>
-  <li><input type="button" class="input" onclick="reset()" value="Reset"></li>
+  <li><input type="reset" class="input" onclick="reset()" value="Reset"></li>
   </form>
 
 </ul>
@@ -71,26 +71,26 @@
 
   
   <div id="mobiletable">
-  <table>
+  <table style="table-layout: fixed; width:300%;">
     <tr class="tableheads">
       <td>MODEL NO.</td>
       <td>BRAND</td>
       <td>NAME</td>
-      <td>DISPLAY TYPE</td>
-      <td>SCREEN SIZE</td>
-      <td>RESOLUTION</td>
+      <td>PRICE</td>
       <td>FRONT CAMERA</td>
       <td>REAR CAMERA</td>
+      <td>BATTERY</td>
+      <td>RAM</td>
+      <td>SECONDARY MEMORY</td>
+      <td>SCREEN SIZE</td>
+      <td>EXTERNAL MEMORY</td>
+      <td>DISPLAY TYPE</td>
+      <td>RESOLUTION</td>
       <td>BLUETOOTH</td>
       <td>WIFI</td>
       <td>NETWORK</td>
-      <td>EXTERNAL MEMORY</td>
       <td>FAST CHARGE</td>
       <td>USB</td>
-      <td>BATTERY</td>
-      <td>PRICE</td>
-      <td>RAM</td>
-      <td>SECONDARY MEMORY</td>
       <td>CPU</td>
       <td>GPU</td>
       <td>PLATFORM</td>
@@ -102,21 +102,21 @@
         <td>${m.getModel()}</td>
         <td>${m.getB_name()}</td>
         <td>${m.getName()}</td>
-        <td>${m.getDisplay()}</td>
-        <td>${m.getScreen()}"</td>
-        <td>${m.getResolution()}</td>
+        <td> &#8377; ${m.getPrice()}</td>
         <td>${m.getFcamera()} MP</td>
         <td>${m.getRcamera()} MP</td>
+        <td>${m.getBattery()} mAh</td>
+        <td>${m.getRam()} GB</td>
+        <td>${m.getSmemory()} GB</td>
+        <td>${m.getScreen()}"</td>
+        <td>${m.getExmemory()} GB</td>
+        <td>${m.getDisplay()}</td>
+        <td>${m.getResolution()}</td>
         <td>${m.getBluetooth()}</td>
         <td>${m.getWifi()}</td>
         <td>${m.getNetwork()}</td>
-        <td>${m.getExmemory()} GB</td>
         <td>${m.getFcharge()}</td>
         <td>${m.getUsb()}</td>
-        <td>${m.getBattery()} MAH</td>
-        <td>${m.getPrice()}</td>
-        <td>${m.getRam()} GB</td>
-        <td>${m.getSmemory()} GB</td>
         <td>${m.getGpu()}</td>
         <td>${m.getCpu()}</td>
         <td>${m.getPlatform()}</td>

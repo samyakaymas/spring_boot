@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mobile.mobile.entity.purchases;
 import com.mobile.mobile.entity.pdescription;
-import com.mobile.mobile.entity.mstock;
-import com.mobile.mobile.entity.astock;
 
 @Transactional
 @Repository

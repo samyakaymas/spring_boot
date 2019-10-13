@@ -26,12 +26,13 @@ public class salesmanDao{
         String sql = "SELECT * FROM salesman WHERE 2 > 1";
         if(!name.isEmpty())
         {
-            sql += " AND name = \'" + name + "\'";
+            sql += " AND name LIKE \'%" + name + "%\'";
         }
         if(current)
         {
             sql += " AND leaving_date IS NULL";
         }
+        sql += " ORDER BY sale_value DESC";
         sql = sql + ";";
         RowMapper<salesman> rowMapper = new BeanPropertyRowMapper<salesman>(salesman.class);
         System.out.println(sql);
@@ -81,6 +82,8 @@ public class salesmanDao{
     {
         String sql = "UPDATE salesman SET leaving_date = ? WHERE id = ?";
         jdbcTemplate.update(sql, leaving_date, id);
+        sql = "DELETE FROM users WHERE sid = ?";
+        jdbcTemplate.update(sql, id);
         return "Deleted";
     }
     public String updateSalary(String name, Integer salary)

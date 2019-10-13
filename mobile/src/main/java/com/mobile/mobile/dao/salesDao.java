@@ -1,6 +1,9 @@
 package com.mobile.mobile.dao;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -13,44 +16,38 @@ import com.mobile.mobile.entity.sales;
 import com.mobile.mobile.entity.sdescription;
 import com.mobile.mobile.entity.mstock;
 import com.mobile.mobile.entity.astock;
-import com.mobile.mobile.entity.mobiles;
+import com.mobile.mobile.entity.datapoint;
 
 @Transactional
 @Repository
 public class salesDao{
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    // public List<sales> getSales(int sid, String moa, String start, String end)
-    // {
-    //     String sql = "SELECT * FROM purchases WHERE 2 > 1";
-    //     if(sid!=0)
-    //     {
-    //         sql += " AND sid = " + sid;
-    //     }
-    //     if(!moa.isEmpty())
-    //     {
-    //         sql += " AND moa = \'" + moa + "\'";
-    //     }
-    //     sql += " AND date>= \'" + start + "\' AND date<= \'" + end + "\'";
-    //     sql = sql + ";";
-    //     RowMapper<purchases> rowMapper = new BeanPropertyRowMapper<purchases>(purchases.class);
-    //     System.out.println(sql);
-    //     List<purchases> list = jdbcTemplate.query(sql,rowMapper);
-    //     for(int i=0;i<list.size();i++)
-    //     {
-    //         String sql2 = "SELECT * FROM pdescription WHERE pid = " + list.get(i).getId();
-    //         RowMapper<pdescription> rowMapper2 = new BeanPropertyRowMapper<pdescription>(pdescription.class);
-    //         list.get(i).setDesc(jdbcTemplate.query(sql2,rowMapper2));
-    //     }
-    //     return list;
-    // }
-    // public boolean idExist(Long id)
-    // {
-    //     String sql = "SELECT COUNT(*) FROM pdescription WHERE id = " + id + ";";
-    //     int count = jdbcTemplate.queryForObject(sql,Integer.class);
-    //     return count>0;
-    // }
-    public String addSale(int cid, int sid, String moa, Date date, List<Long> ids, List<Integer> prices)
+    public List<sales> getSales(int sid, String moa, String start, String end)
+    {
+        String sql = "SELECT * FROM sales WHERE 2 > 1";
+        if(sid!=0)
+        {
+            sql += " AND sid = " + sid;
+        }
+        if(!moa.isEmpty())
+        {
+            sql += " AND moa = \'" + moa + "\'";
+        }
+        sql += " AND date>= \'" + start + "\' AND date<= \'" + end + "\'";
+        sql = sql + ";";
+        RowMapper<sales> rowMapper = new BeanPropertyRowMapper<sales>(sales.class);
+        System.out.println(sql);
+        List<sales> list = jdbcTemplate.query(sql,rowMapper);
+        for(int i=0;i<list.size();i++)
+        {
+            String sql2 = "SELECT * FROM sdescription WHERE sid = " + list.get(i).getId();
+            RowMapper<sdescription> rowMapper2 = new BeanPropertyRowMapper<sdescription>(sdescription.class);
+            list.get(i).setDesc(jdbcTemplate.query(sql2,rowMapper2));
+        }
+        return list;
+    }
+    public String addSale(int cid, String username, String moa, java.sql.Date date, List<Long> ids, List<Integer> prices)
     {
         if(ids.size()==0)
         {
@@ -63,6 +60,7 @@ public class salesDao{
         {
             price += prices.get(i);
         }
+        int sid = jdbcTemplate.queryForObject("SELECT sid FROM users WHERE username = \'"+username+"\'", Integer.class);
         String sql = "INSERT INTO sales(id,date,moa,sell_price,cid,sid) VALUES (?,?,?,?,?,?);";
         jdbcTemplate.update(sql, id, date, moa, price, cid, sid);
         for(int i=0;i<ids.size();i++)
@@ -79,6 +77,8 @@ public class salesDao{
                 jdbcTemplate.update("DELETE FROM astock WHERE id = ?",ids.get(i));
             }
         }
+        jdbcTemplate.update("UPDATE salesman SET sale_value = sale_value + ? WHERE id = ?",price,sid);
+        jdbcTemplate.update("UPDATE salesman SET sale_units = sale_units + ? WHERE id = ?",ids.size(),sid); 
         return "Added";
     }
     public List<mstock> getMstock()
@@ -92,5 +92,56 @@ public class salesDao{
         String sql = "SELECT CONCAT(a.brand,' ',a.name) as name, s.cost_price as cost_price, s.sell_price as sell_price, s.id as id, s.model as model FROM accessories a, astock s WHERE a.model = s.model";
         RowMapper<astock> rowMapper = new BeanPropertyRowMapper<astock>(astock.class);
         return jdbcTemplate.query(sql,rowMapper);
+    }
+    public int getSellValue(String date)
+    {
+        String sql = "SELECT COALESCE(SUM(sell_price),0) FROM sales WHERE date = \'" + date + "\'";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+    public List<datapoint> getData()
+    {
+        java.util.Date date = new java.util.Date();
+        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+        List<datapoint> list = new ArrayList<datapoint>();
+        Calendar cal  = Calendar.getInstance();
+        for(int i=0;i<7;i++)
+        {
+            datapoint k = new datapoint();
+            k.x = i;
+            String dd = sm.format(date);
+            k.y = getSellValue(dd);
+            cal.add(Calendar.DAY_OF_YEAR,-1);
+            Date prev = cal.getTime();
+            date = prev;
+            k.date = date;
+            list.add(k);
+        }
+        return list;
+    }
+    public int getSSellValue(String date, int sid)
+    {
+        String sql = "SELECT COALESCE(SUM(sell_price),0) FROM sales WHERE date = \'" + date + "\' AND sid = " + sid;
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+    public List<datapoint> getSData(String username)
+    {
+        int sid = jdbcTemplate.queryForObject("SELECT sid FROM users WHERE username = \'"+username+"\'", Integer.class);
+        java.util.Date date = new java.util.Date();
+        SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+        List<datapoint> list = new ArrayList<datapoint>();
+        Calendar cal  = Calendar.getInstance();
+        for(int i=0;i<7;i++)
+        {
+            datapoint k = new datapoint();
+            k.x = i;
+            String dd = sm.format(date);
+            k.y = getSSellValue(dd,sid);
+            cal.add(Calendar.DAY_OF_YEAR,-1);
+            Date prev = cal.getTime();
+            date = prev;
+            k.date = date;
+            list.add(k);
+        }
+        return list;
     }
 }

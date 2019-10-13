@@ -23,12 +23,19 @@
   <li><a href="/accessory">All Accessories</a></li>
   <li><a href="/admin/brand">Brand</a></li>
   <li><a href="/admin/mobile">Mobile</a></li>
+  <li><a href="/admin/mstock">Mobile Stock</a></li>
   <li><a href="/admin/accessory">Accessory</a></li>
+  <li><a href="/admin/astock">Accessory Stock</a></li>
   <li><a class="active" href="/admin/supplier">Supplier</a></li>
+  <li><a href="/admin/allsuppliers">All Suppliers</a></li>
   <li><a href="/admin/salesman">Salesman</a></li>
+  <li><a href="/admin/allsalesman">All Salesman</a></li>
+  <li><a href="/admin/allcustomer">All Customer</a></li>
   <li><a href="/admin/purchase">Purchase</a></li>
   <li><a href="/admin/allpurchase">All Purchases</a></li>
+  <li><a href="/admin/allsales">All Sales</a></li>
   <li><a href="/admin/expense">Other Expense</a></li>
+  <li><a href="/admin/expenses">All Other Expenses</a></li>
   <li><a href="/admin/birthdays">Birthdays</a></li>
   <li><a href="/logout">Logout</a></li>
 </ul>

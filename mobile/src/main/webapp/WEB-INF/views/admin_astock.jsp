@@ -4,6 +4,15 @@
 <head>
         <link rel="stylesheet" href="/common.css">
         <script>
+        function reset()
+        {
+          inputs = document.getElementsByClassName ("input");
+          for(x in inputs)
+          {
+            inputs[x].value="";
+          }
+          return false;
+        }
         function getDate() {
             var today = new Date();
             var dd = today.getDate();
@@ -24,22 +33,21 @@
           };
           window.onload = function() {
             getDate();
-          };</script>
+          };
+        </script>
 </head>
 <body>
 <div id="sidetab">
 <div id="navbar">
-
 <ul>
-  <li><a href="/">Home</a></li>
+    <li><a href="/">Home</a></li>
   <li><a href="/mobiles">All Mobiles</a></li>
   <li><a href="/accessory">All Accessories</a></li>
   <li><a href="/admin/brand">Brand</a></li>
   <li><a href="/admin/mobile">Mobile</a></li>
   <li><a href="/admin/mstock">Mobile Stock</a></li>
   <li><a href="/admin/accessory">Accessory</a></li>
-  <li><a href="/admin/astock">Accessory Stock</a></li>
-  <li><a href="/admin/supplier">Supplier</a></li>
+  <li><a class="active" href="/admin/astock">Accessory Stock</a></li>  <li><a href="/admin/supplier">Supplier</a></li>
   <li><a href="/admin/allsuppliers">All Suppliers</a></li>
   <li><a href="/admin/salesman">Salesman</a></li>
   <li><a href="/admin/allsalesman">All Salesman</a></li>
@@ -47,26 +55,37 @@
   <li><a href="/admin/purchase">Purchase</a></li>
   <li><a href="/admin/allpurchase">All Purchases</a></li>
   <li><a href="/admin/allsales">All Sales</a></li>
-  <li><a class="active" href="/admin/expense">Other Expense</a></li>
+  <li><a href="/admin/expense">Other Expense</a></li>
   <li><a href="/admin/expenses">All Other Expenses</a></li>
   <li><a href="/admin/birthdays">Birthdays</a></li>
   <li><a href="/logout">Logout</a></li>
+
 </ul>
 </div>
+
 </div>
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
-  <div id="admin_expense">
-  <form action="/admin/expense" method="POST">
-    Date:<br>
-    <input type="date" name="date" id="date">
-    Purpose:
-    <input type="text" name="purpose">
-    Cost:
-    <input type="number" name="cost" value=0>
-    <input type="submit" value="Add Expense">
-  </form>
-  <div>${outcome}</div>
-</div>
+  
+
+  
+        <div id="purchasetable">
+                <table>
+                  <tr class="tableheads">
+                    <td>Name</td>
+                    <td>ID</td>
+                    <td>Cost Price</td>
+                  </tr>
+                  <c:forEach items="${list}" var="p">
+                    <tr class="tableitems">
+                      <td>${p.getName()}</td>
+                      <td>${p.getId()}</td>
+                      <td>${p.getCost_price()}</td>
+                    </tr>
+                  </c:forEach>
+                </table>
+                </div>
+
+
 </div>
 
 </body>

@@ -23,12 +23,19 @@
   <li><a href="/accessory">All Accessories</a></li>
   <li><a href="/admin/brand">Brand</a></li>
   <li><a class="active" href="/admin/mobile">Mobile</a></li>
+  <li><a href="/admin/mstock">Mobile Stock</a></li>
   <li><a href="/admin/accessory">Accessory</a></li>
+  <li><a href="/admin/astock">Accessory Stock</a></li>
   <li><a href="/admin/supplier">Supplier</a></li>
+  <li><a href="/admin/allsuppliers">All Suppliers</a></li>
   <li><a href="/admin/salesman">Salesman</a></li>
+  <li><a href="/admin/allsalesman">All Salesman</a></li>
+  <li><a href="/admin/allcustomer">All Customer</a></li>
   <li><a href="/admin/purchase">Purchase</a></li>
   <li><a href="/admin/allpurchase">All Purchases</a></li>
+  <li><a href="/admin/allsales">All Sales</a></li>
   <li><a href="/admin/expense">Other Expense</a></li>
+  <li><a href="/admin/expenses">All Other Expenses</a></li>
   <li><a href="/admin/birthdays">Birthdays</a></li>
   <li><a href="/logout">Logout</a></li>
 </ul>
@@ -49,22 +56,22 @@
     Price:<input type="number" name="price" value=0>
     Display:<input type="text" name="display">
     Resolution:<input type="text" name="resolution">
-    Wifi:<input type="number" name="wifi" value=0.0>
+    Wifi:<input type="number" step="0.1" name="wifi" value=0.0>
     Network:<input type="text" name="network">
     Fast Charge:<input type="text" name="fcharge">
     GPU:<input type="text" name="gpu">
     CPU:<input type="text" name="cpu">
     Platform:<input type="text" name="platform">
     Dual Sim<input type="text" name="dualsim">
-    Screen:<input type="number" name="screen" value=0.0>
+    Screen:<input type="number" step="0.01" name="screen" value=0.0>
     Front Camera:<input type="number" name="fcamera" value=0>
     Rear Camera:<input type="number" name="rcamera" value=0>
-    Bluetooth:<input type="number" name="bluetooth" value=0.0>
+    Bluetooth:<input type="number" step="0.1" name="bluetooth" value=0.0>
     Secondary Memory:<input type="number" name="smemory" value=0>
     RAM:<input type="number" name="ram" value=0>
     Battery:<input type="number" name="battery" value=0>
     External Memory:<input type="number" name="exmemory" value=0>
-    USB:<input type="number" name="usb" value=0.0>
+    USB:<input type="number" step="0.1" name="usb" value=0.0>
     Colors:<div id="color"><input type="text" name="color[]"></div><div id="colors"></div>
     <input type="button" value="Add Color" onclick="addcolor()">
     <input type="submit" value="Add Mobile">

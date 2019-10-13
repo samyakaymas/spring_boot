@@ -52,9 +52,9 @@
   <li>
     <select class="input" name="type">
         <option value="">All</option>
-        <!-- <c:forEach items="${types}" var="type">
-          <option value="${type.getType()}">${brand.getType()}</option>
-        </c:forEach> -->
+        <c:forEach items="${types}" var="t">
+          <option value="${t.getType()}">${t.getType()}</option>
+        </c:forEach>
       </select>
   </li>
   <li><input type="submit" value="Search"></li>

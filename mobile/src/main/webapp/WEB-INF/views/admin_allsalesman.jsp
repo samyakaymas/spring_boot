@@ -51,10 +51,10 @@
   <li><a href="/admin/supplier">Supplier</a></li>
   <li><a href="/admin/allsuppliers">All Suppliers</a></li>
   <li><a href="/admin/salesman">Salesman</a></li>
-  <li><a href="/admin/allsalesman">All Salesman</a></li>
+  <li><a class="active" href="/admin/allsalesman">All Salesman</a></li>
   <li><a href="/admin/allcustomer">All Customer</a></li>
   <li><a href="/admin/purchase">Purchase</a></li>
-  <li><a class="active" href="/admin/allpurchase">All Purchases</a></li>
+  <li><a href="/admin/allpurchase">All Purchases</a></li>
   <li><a href="/admin/allsales">All Sales</a></li>
   <li><a href="/admin/expense">Other Expense</a></li>
   <li><a href="/admin/expenses">All Other Expenses</a></li>
@@ -66,28 +66,18 @@
 <div id="searchbar">
   <ul>
     <li></li>
-  <form action="/admin/allpurchase" method="POST">
-  <li>Supplier</li>
+  <form action="/admin/allsalesman" method="POST">
+  <li>Name</li>
   <li>
-    <select class="input" name="sid">
-      <option value=0>All</option>
-      <c:forEach items="${supplier}" var="s">
-        <option value="${s.getId()}">${s.getName()}</option>
-      </c:forEach>
+    <input type="text" name="name">
+  </li>
+  <li>Status</li>
+  <li>
+    <select class="input" name="status">
+        <option value=0>All</option>
+        <option value=1>Curent</option>
     </select>
   </li>
-  <li>Type</li>
-  <li>
-    <select class="input" name="moa">
-        <option value="">All</option>
-        <option value="mobile">Mobile</option>
-        <option value="accessory">Accessory</option>
-    </select>
-  </li>
-  <li>Start Date</li>
-  <li><input type="date" name="start" value="2019-01-01"></li>
-  <li>End Date</li>
-  <li><input type="date" id="date" name="end"></li>
   <li><input type="submit" value="Search"></li>
   <li><input type="button" class="input" onclick="reset()" value="Reset"></li>
   </form>
@@ -102,28 +92,34 @@
   <div id="purchasetable">
   <table>
     <tr class="tableheads">
-      <td>Purchase ID</td>
-      <td>Mobile/Accessory</td>
-      <td>Date</td>
-      <td>Supplier</td>
-      <td>Description</td>
+      <td>Salesman ID</td>
+      <td>Name</td>
+      <td>Address</td>
+      <td>Date Of Birth</td>
+      <td>Join Date</td>
+      <td>Leaving Date</td>
+      <td>Starting Salary</td>
+      <td>Current Salary</td>
+      <td>Sale Units</td>
+      <td>Sale Value</td>
+      <td>Number</td>
     </tr>
-    <c:forEach items="${purchase}" var="p">
+    <c:forEach items="${list}" var="p">
       <tr class="tableitems">
         <td>${p.getId()}</td>
-        <td>${p.getMoa()}</td>
-        <td>${p.getDate()}</td>
-        <td>${p.getSid()}</td>
+        <td>${p.getName()}</td>
+        <td>${p.getAddress()}</td>
+        <td>${p.getDob()}</td>
+        <td>${p.getJoin_date()}</td>
+        <td>${p.getLeaving_date()}</td>
+        <td>${p.getStart_salary()}</td>
+        <td>${p.getCurrent_salary()}</td>
+        <td>${p.getSale_units()}</td>
+        <td>${p.getSale_value()}</td>
         <td>
-          <table>
-          <c:forEach items="${p.getDesc()}" var="d">
-            <tr class="description">
-              <td>${d.getModel()}</td>
-              <td>${d.getId()}</td>
-              <td>${d.getCost()}</td>
-            </tr>
+          <c:forEach items="${p.getNumber()}" var="d">
+            ${d.getNumber()}<br>
           </c:forEach>
-          </table>
         </td>
       </tr>
     </c:forEach>
