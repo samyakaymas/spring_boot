@@ -64,6 +64,7 @@
 </ul>
 </div>
 <div id="searchbar">
+  
   <ul>
     <li></li>
   <form action="/admin/expenses" method="POST">
@@ -88,6 +89,7 @@
 
   
   <div id="purchasetable">
+      <h2>ALL OTHER EXPENSES</h2>
   <table>
     <tr class="tableheads">
       <td>Expense ID</td>

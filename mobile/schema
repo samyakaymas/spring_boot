@@ -1,0 +1,206 @@
+
+CREATE DATABASE mobile_database;
+USE mobile_database;
+
+CREATE TABLE brand(
+name VARCHAR(50) PRIMARY KEY,
+brank INT
+);
+
+CREATE TABLE mobiles(
+model VARCHAR(50) PRIMARY KEY,
+name VARCHAR(50),
+b_name VARCHAR(50) REFERENCES brand(name) ON DELETE CASCADE,
+display VARCHAR(50),
+screen VARCHAR(50),
+resolution VARCHAR(50),
+fcamera VARCHAR(50),
+rcamera VARCHAR(50),
+bluetooth VARCHAR(50),
+wifi VARCHAR(50),
+network VARCHAR(50),
+exmemory VARCHAR(50),
+fcharge VARCHAR(50),
+usb VARCHAR(50),
+battery VARCHAR(50),
+ram VARCHAR(50),
+gpu VARCHAR(50),
+cpu VARCHAR(50),
+platform VARCHAR(50),
+dualsim VARCHAR(50),
+smemory VARCHAR(50),
+price INT
+);
+
+CREATE TABLE accessories
+(
+  model VARCHAR(50) PRIMARY KEY,
+  name VARCHAR(50),
+  type VARCHAR(50),
+  price INT,
+  brand VARCHAR(50) REFERENCES brand(name) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE customer
+(
+  name VARCHAR(50),
+  address VARCHAR(50),
+  dob DATE,
+  id INT PRIMARY KEY AUTO_INCREMENT
+);
+
+CREATE TABLE salesman
+(
+  name VARCHAR(50),
+  start_salary INT,
+  sale_value INT DEFAULT 0,
+  address VARCHAR(50),
+  join_date DATE,
+  leaving_date DATE,
+  dob DATE,
+  sale_units INT DEFAULT 0,
+  current_salary INT DEFAULT 0,
+  id INT PRIMARY KEY AUTO_INCREMENT
+);
+
+CREATE TABLE otherexpenses
+(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  cost INT,
+  date DATE,
+  purpose VARCHAR(50)
+);
+
+CREATE TABLE sales
+(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  moa VARCHAR(50),
+  sell_price INT,
+  date DATE,
+  cid INT REFERENCES salesman(id) ON UPDATE CASCADE,
+  sid INT REFERENCES customer(id) ON UPDATE CASCADE
+);
+
+CREATE TABLE supplier
+(
+  name VARCHAR(50),
+  address VARCHAR(50),
+  id INT PRIMARY KEY AUTO_INCREMENT
+);
+
+CREATE TABLE customer_number
+(
+  number BIGINT NOT NULL,
+  id INT REFERENCES customer(id),
+  PRIMARY KEY (number, id)
+);
+
+CREATE TABLE salesman_number
+(
+  number BIGINT,
+  id INT REFERENCES salesman(id),
+  PRIMARY KEY (number, id)
+);
+
+CREATE TABLE supplier_number
+(
+  number BIGINT,
+  id INT REFERENCES supplier(id),
+  PRIMARY KEY (number, id)
+);
+
+CREATE TABLE reference
+(
+  reference_to INT REFERENCES customer(id),
+  reference_by INT REFERENCES customer(id),
+  PRIMARY KEY (reference_to, reference_by)
+);
+
+CREATE TABLE sdescription
+(
+  id INT AUTO_INCREMENT,
+  model VARCHAR(50),
+  sell_price INT,
+  sid INT REFERENCES sales(id) ON DELETE CASCADE,
+  PRIMARY KEY (id, sid)
+);
+
+CREATE TABLE mstock
+(
+  CostPrice INT,
+  SellingPrice INT NOT NULL,
+  id BIGINT PRIMARY KEY,
+  model VARCHAR(50) REFERENCES mobiles(model) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE astock
+(
+  cost_price INT,
+  sell_price INT,
+  id BIGINT PRIMARY KEY,
+  model VARCHAR(50) REFERENCES accessories(model) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE purchases
+(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  date DATE,
+  moa VARCHAR(50),
+  sid INT REFERENCES supplier(id) ON DELETE CASCADE
+);
+
+CREATE TABLE colors
+(
+  color VARCHAR(50),
+  model VARCHAR(50) REFERENCES mobiles(model) ON DELETE CASCADE,
+  PRIMARY KEY (color, model)
+);
+
+CREATE TABLE aspecs
+(
+  specs VARCHAR(50),
+  model VARCHAR(50) REFERENCES accessories(model) ON DELETE CASCADE,
+  PRIMARY KEY (specs, model)
+);
+
+CREATE TABLE pdescription
+(
+  id INT AUTO_INCREMENT,
+  model VARCHAR(50),
+  cost INT,
+  pid INT REFERENCES purchases(id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (id,pid)
+);
+
+create TABLE users
+(
+  username VARCHAR(50) PRIMARY KEY,
+  password VARCHAR(50),
+  sid int REFERENCES salesman(id)
+);
+
+create TABLE roles
+(
+  role VARCHAR(50) PRIMARY KEY
+);
+
+create TABLE user_role
+(
+  username VARCHAR(50) REFERENCES users(username),
+  role VARCHAR(50) REFERENCES roles(role)
+);
+
+SET GLOBAL event_scheduler = 1;
+
+DELIMITER $$
+CREATE EVENT resetsale
+ON SCHEDULE EVERY '1' MONTH
+STARTS '2019-10-14 00:00:00'
+DO 
+BEGIN
+UPDATE salesman
+SET sale_value = 0, sale_units = 0;
+END$$
+
+DELIMITER ;
+

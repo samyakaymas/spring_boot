@@ -70,6 +70,7 @@
 
   
   <div id="purchasetable">
+      <h2>MOBILE STOCK</h2>
   <table>
     <tr class="tableheads">
       <td>Name</td>

@@ -59,12 +59,13 @@
 </div>
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
   <div id="admin_birthday">
+      <h2>BIRTHDAYS</h2>
   <form action="/admin/birthdays" method="POST">
     <input type="date" name="date" id="date" value="${date}">
     <input type="submit" value="Submit">
   </form>
   <div>${outcome}</div>
-  <div id="birthdaytable">
+  <div id="purchasetable">
   <table>
     <tr>
       <td>Customer ID</td>

@@ -70,6 +70,7 @@
 
   
   <div id="purchasetable">
+      <h2>ALL SUPPLIERS</h2>
   <table>
     <tr class="tableheads">
       <td>Supplier ID</td>

@@ -45,6 +45,7 @@
 
 
   <div id="admin_mobile_add">
+    <h2>ADD MOBILE</h2>
   <form action="/admin/mobile/add" method="POST">
     Brand:<select class="input" name="brand">
       <c:forEach items="${brands}" var="brand">
@@ -53,7 +54,7 @@
     </select>
     Name:<input type="text" name="name" required>
     Model:<input type="text" name="model" required>
-    Price:<input type="number" name="price" value=0>
+    Price:<input type="number" min=0 name="price" value=0>
     Display:<input type="text" name="display">
     Resolution:<input type="text" name="resolution">
     Wifi:<input type="number" step="0.1" name="wifi" value=0.0>
@@ -81,6 +82,7 @@
 
 
 <div id="admin_mobile_update">
+    <h2>UPDATE PRICE</h2>
   <form action="/admin/mobile/update" method="POST">
     Mobile: <select class="input" name="model" id="model">
       <option value=""></option>
@@ -88,13 +90,14 @@
         <option value="${m.getModel()}">${m.getB_name()} ${m.getName()}</option>
       </c:forEach>
     </select>
-    New Price:<input type="number" name="price" id="price" required>
+    New Price:<input type="number" min=0 name="price" id="price" value=0 required>
     <input type="submit" value="Update Price">
   </form>
   <div>${outcome_update}</div>
 </div>
 
 <div id="admin_mobile_delete">
+    <h2>DELETE</h2>
     <form action="/admin/mobile/delete" method="POST">
       Mobile: <select class="input" name="model" id="model">
         <option value=""></option>

@@ -87,6 +87,7 @@
 
   
   <div id="purchasetable">
+      <h2>ALL CUSTOMER</h2>
   <table>
     <tr class="tableheads">
       <td>Customer ID</td>

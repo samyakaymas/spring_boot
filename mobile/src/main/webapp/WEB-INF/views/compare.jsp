@@ -18,7 +18,9 @@
 </div>
 </div>
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+  
   <div id="comparetable">
+      <h2>COMPARE MOBILES</h2>
 <table>
   <tr>
     <form action="/mobiles/compare" method="POST">

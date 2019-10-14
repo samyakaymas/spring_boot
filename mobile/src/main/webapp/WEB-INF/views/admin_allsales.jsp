@@ -100,6 +100,7 @@
 
   
   <div id="purchasetable">
+      <h2>ALL SALES</h2>
   <table>
     <tr class="tableheads">
       <td>Sale ID</td>

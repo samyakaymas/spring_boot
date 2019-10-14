@@ -46,7 +46,9 @@
                     <li><a href="/accessory">All Accessories</a></li>
             </ul>
 </div></div>
+        
         <div id="loginbox">
+                <h2>LOGIN</h2>
         <form:form action="/" method="POST" onsubmit="return userAuth()">
             <table id="logintable">
                 <tr>

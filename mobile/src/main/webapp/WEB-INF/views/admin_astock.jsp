@@ -69,6 +69,8 @@
 
   
         <div id="purchasetable">
+
+            <h2>ASTOCK</h2>
                 <table>
                   <tr class="tableheads">
                     <td>Name</td>

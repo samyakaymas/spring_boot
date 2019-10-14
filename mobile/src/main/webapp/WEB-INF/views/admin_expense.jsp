@@ -56,6 +56,7 @@
 </div>
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
   <div id="admin_expense">
+      <h2>OTHER EXPENSES</h2>
   <form action="/admin/expense" method="POST">
     Date:<br>
     <input type="date" name="date" id="date">

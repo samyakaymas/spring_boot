@@ -35,12 +35,15 @@
 </div>
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
   <div id="admin_brand">
+    <h2>ADD/DELETE BRAND</h2>
   <form action="/admin/brand" method="POST">
+    Add/Delete:<br>
     <select class="input" name="action" id="action">
     <option value="add">Add Brand</option>
     <option value="del">Delete Brand</option>
     </select>
-    <input list="brand" name="brand">
+    Name:<br>
+    <input list="brand" name="brand" placeholder="Name">
     <datalist id="brand">
       <c:forEach items="${brands}" var="brand">
         <option value="${brand.getName()}">

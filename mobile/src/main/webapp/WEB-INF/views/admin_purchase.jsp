@@ -21,10 +21,10 @@
               </select>`;
               row.appendChild(column);
             var column = document.createElement("TD");
-            column.innerHTML = '<input type="number" name="ids[]">';
+            column.innerHTML = '<input type="number" name="ids[]" min=99999 required>';
             row.appendChild(column);
             var column = document.createElement("TD");
-            column.innerHTML = '<input type="number" name="prices[]" value=0 required>';
+            column.innerHTML = '<input type="number" min=0 name="prices[]" value=0 required>';
             row.appendChild(column);
             var column = document.createElement("TD");
             column.innerHTML = '<input type="button" value="Delete" onclick="deletes(this.parentElement.parentElement)">';
@@ -121,6 +121,7 @@ window.onload = function() {
 
 
   <div id="admin_purchase">
+      <h2>PURCHASE</h2>
   <form action="/admin/purchase" method="POST">
     <table>
     <tr><td>Supplier:</td><td><select class="input" name="sid" required>
@@ -148,8 +149,8 @@ window.onload = function() {
                 </c:forEach>
             </select>
         </td>
-        <td><input type="number" name="ids[]" required  ></td>
-        <td><input type="number" name="prices[]" value=0></td>
+        <td><input type="number" name="ids[]" min=99999 required></td>
+        <td><input type="number" min=0 name="prices[]" value=0></td>
         <td></td>
       </tr>
     </table>

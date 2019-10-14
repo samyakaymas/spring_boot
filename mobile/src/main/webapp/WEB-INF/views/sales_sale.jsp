@@ -44,7 +44,7 @@
             column.appendChild(s);
             row.appendChild(column);
             var column = document.createElement("TD");
-            column.innerHTML = '<input type="number" name="prices[]" value=0 required>';
+            column.innerHTML = '<input type="number" name="prices[]" min=0 value=0 required>';
             row.appendChild(column);
             var column = document.createElement("TD");
             column.innerHTML = '<input type="button" value="Delete" onclick="deletes(this.parentElement.parentElement)">';
@@ -130,6 +130,7 @@ window.onload = function() {
     </div>
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
   <div id="sales">
+    <h2>SALES</h2>
     <form action="/sales/sale" method="POST">
       <table>
       <tr><td>Customer:</td><td><select class="input" name="cid" required>

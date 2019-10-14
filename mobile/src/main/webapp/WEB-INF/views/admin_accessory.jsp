@@ -45,6 +45,7 @@
 
 
   <div id="admin_acc_add">
+      <h2>ADD</h2>
   <form action="/admin/accessory/add" method="POST">
     Brand:<select class="input" name="brand">
       <c:forEach items="${brands}" var="brand">
@@ -63,6 +64,7 @@
 </div>
 
 <div id="admin_acc_delete">
+    <h2>DELETE</h2>
     <form action="/admin/accessory/delete" method="POST">
       Accessory: <select class="input" name="model" id="model" required>
         <c:forEach items="${list}" var="m">

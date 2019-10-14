@@ -71,6 +71,7 @@ window.onload = function() {
 
 
   <div id="admin_salesman_add">
+      <h2>ADD</h2>
   <form:form action="/admin/salesman/add" method="POST" modelAttribute="userForm">
     Name:<input type="text" name="name" required>
     Username:<spring:bind path="username">
@@ -84,7 +85,7 @@ window.onload = function() {
     Address:<input type="text" name="address">
     Date Of Birth:<input type="date" name = "dob" value = "1990-01-01">
     Joining Date:<input type="date" name = "join_date" id = "date">
-    Start Salary:<input type="number" name = "start_salary" value=0>
+    Start Salary:<input type="number" min=0 name = "start_salary" value=0>
     Mobile Number:<div id="mobile"><input type="number" min=1000000000 max=9999999999 name="mobiles[]"></div>
     <input type="button" value="Add Number" onclick="addmobile()">
     <input type="submit" value="Add Salesman">
@@ -93,26 +94,28 @@ window.onload = function() {
 </div>
 
 <div id="admin_salesman_update">
+    <h2>UPDATE SALARY</h2>
   <form action="/admin/salesman/update" method="POST" modelAttribute="userForm">
     Name: <select class="input" name="name" required>
       <c:forEach items="${list}" var="m">
         <option value="${m.getName()}">${m.getName()}</option>
       </c:forEach>
     </select>
-    New Salary:<input type="number" name="salary">
+    New Salary:<input type="number" min=0 name="salary" required>
     <input type="submit" value="Update Salary">
   </form>
   <div>${outcome_update}</div>
 </div>
 
 <div id="admin_salesman_delete">
+    <h2>FIRE</h2>
     <form action="/admin/salesman/delete" method="POST" modelAttribute="userForm">
       Name: <select class="input" name="id" required>
         <c:forEach items="${list}" var="m">
           <option value="${m.getId()}">${m.getName()}</option>
         </c:forEach>
       </select>
-      Leaving Date: <input type="date" name="leaving_date" id = "date2">
+      Leaving Date: <input type="date" name="leaving_date" id = "date2" required>
       <input type="submit" value="Fire Salesman">
     </form>
     <div>${outcome_delete}</div>

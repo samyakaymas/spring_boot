@@ -90,6 +90,7 @@
 
   
   <div id="purchasetable">
+      <h2>ALL SALESMAN</h2>
   <table>
     <tr class="tableheads">
       <td>Salesman ID</td>

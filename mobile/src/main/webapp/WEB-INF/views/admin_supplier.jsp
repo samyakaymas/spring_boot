@@ -45,10 +45,11 @@
 
 
   <div id="admin_acc_add">
+      <h2>ADD</h2>
   <form action="/admin/supplier" method="POST">
     Name:<input type="text" name="name" required>
     Address:<input type="text" name="address" required>
-    Mobile Number:<div id="mobile"><input type="number" min=1000000000 max=9999999999 name="mobiles[]"></div>
+    Mobile Number:<div id="mobile"><input style="width:90%;" type="number" min=1000000000 max=9999999999 name="mobiles[]" required></div>
     <input type="button" value="Add Number" onclick="addspec()">
     <input type="submit" value="Add Supplier">
   </form>
@@ -56,6 +57,7 @@
 </div>
 
 <div id="admin_acc_delete">
+    <h2>DELETE</h2>
     <form action="/admin/supplier/delete" method="POST">
       Supplier: <select class="input" name="id" required>
         <c:forEach items="${suppliers}" var="m">

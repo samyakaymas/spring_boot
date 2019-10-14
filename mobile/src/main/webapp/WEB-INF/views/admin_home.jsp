@@ -10,7 +10,7 @@
         
         var chart = new CanvasJS.Chart("chartContainer", {
           animationEnabled: true,
-          theme: "light2",
+          theme: "dark1",
           title:{
             text: "Weekly Sale Chart"
           },
@@ -23,18 +23,19 @@
             prefix: document.getElementById("rs").innerHTML,
             includeZero: false
           },
-          data: [{        
+          data: [{     
             type: "line",
+            lineColor: "#950750",
             xValueType: "dateTime",  
             xValueFormatString: "DD MMM",    
             dataPoints: [
-              { y: parseInt(document.getElementById("7y").innerHTML), x: parseInt(document.getElementById("7d").innerHTML),markerColor: "blue", markerType: "triangle" },
-              { y: parseInt(document.getElementById("6y").innerHTML), x: parseInt(document.getElementById("6d").innerHTML),markerColor: "blue", markerType: "triangle" },
-              { y: parseInt(document.getElementById("5y").innerHTML), x: parseInt(document.getElementById("5d").innerHTML),markerColor: "blue", markerType: "triangle" },
-              { y: parseInt(document.getElementById("4y").innerHTML), x: parseInt(document.getElementById("4d").innerHTML),markerColor: "blue", markerType: "triangle" },
-              { y: parseInt(document.getElementById("3y").innerHTML), x: parseInt(document.getElementById("3d").innerHTML),markerColor: "blue", markerType: "triangle" },
-              { y: parseInt(document.getElementById("2y").innerHTML), x: parseInt(document.getElementById("2d").innerHTML),markerColor: "blue", indexLabel: "yesterday", markerType: "triangle" },
-              { y: parseInt(document.getElementById("1y").innerHTML), x: parseInt(document.getElementById("1d").innerHTML),markerColor: "blue", indexLabel: "today", markerType: "cross" }
+              { y: parseInt(document.getElementById("7y").innerHTML), x: parseInt(document.getElementById("7d").innerHTML),markerColor: "#c3073f", markerType: "triangle" },
+              { y: parseInt(document.getElementById("6y").innerHTML), x: parseInt(document.getElementById("6d").innerHTML),markerColor: "#c3073f", markerType: "triangle" },
+              { y: parseInt(document.getElementById("5y").innerHTML), x: parseInt(document.getElementById("5d").innerHTML),markerColor: "#c3073f", markerType: "triangle" },
+              { y: parseInt(document.getElementById("4y").innerHTML), x: parseInt(document.getElementById("4d").innerHTML),markerColor: "#c3073f", markerType: "triangle" },
+              { y: parseInt(document.getElementById("3y").innerHTML), x: parseInt(document.getElementById("3d").innerHTML),markerColor: "#c3073f", markerType: "triangle" },
+              { y: parseInt(document.getElementById("2y").innerHTML), x: parseInt(document.getElementById("2d").innerHTML),markerColor: "#c3073f", indexLabel: "yesterday", markerType: "triangle" },
+              { y: parseInt(document.getElementById("1y").innerHTML), x: parseInt(document.getElementById("1d").innerHTML),markerColor: "#c3073f" , indexLabel: "today", markerType: "cross" }
             ]
           }]
         });
@@ -87,6 +88,7 @@
   <div id="6y" hidden>${p.get(5).y}</div>
   <div id="7y" hidden>${p.get(6).y}</div>
   <div id="rs" hidden>&#8377;</div>
+  <h2>Weekly Sales</h2>
   <div id="chartContainer"></div>
         <script src="/graph.js"></script>
 </div>

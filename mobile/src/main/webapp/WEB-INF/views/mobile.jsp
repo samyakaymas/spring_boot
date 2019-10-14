@@ -69,7 +69,7 @@
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
   
 
-  
+  <h2>ALL MOBILES</h2>
   <div id="mobiletable">
   <table style="table-layout: fixed; width:300%;">
     <tr class="tableheads">
